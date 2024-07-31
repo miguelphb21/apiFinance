@@ -24,7 +24,7 @@ const addTransaction = (req, res) =>{
         (err, results) =>{
             if(err){
                 console.error('Erro ao adicionar transação', err)
-                res.status(500).send('Erro ao adicionar transação')
+                results.status(500).send('Erro ao adicionar transação')
                 return;
             }
             res.status(201).send('Transação bem sucedida')
@@ -32,8 +32,31 @@ const addTransaction = (req, res) =>{
     )
 }
 
+//Função para atualizar uma transação existente (Substituição completa)
+const updateTransactionPut = (req, res) =>{
+    const{id} = req.params
+    const {date, amount, description, category, account, user_id} = req.body
+    db.query(
+        `update transactions set date=?, amount=?, description=?, category=?, account=?, user_id=? where id=?`,
+        [date, amount, description, category, account, user_id,id],        
+        (err, results) => {
+            if(err){
+                console.error('Erro ao adicionar transação', err)
+                res.status(500).send('Erro ao adicionar transação')
+                return;
+            }
+            res.send('Transação adicionada com sucesso')
+        }
+    )
+}
+
+// const updateTransactionPatch = (req, res) => {
+//     const {id} = req.params
+// }
 
 module.exports = {
     getAllTransactions,
-    addTransaction
+    addTransaction,
+    updateTransactionPut,
+    updateTransactionPatch
 };
