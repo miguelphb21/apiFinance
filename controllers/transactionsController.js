@@ -50,13 +50,49 @@ const updateTransactionPut = (req, res) =>{
     )
 }
 
-// const updateTransactionPatch = (req, res) => {
-//     const {id} = req.params
-// }
+ const updateTransactionPatch = (req, res) => {
+    const {id} = req.params
+    const fields = req.body
+    const query = [];
+    const values = [];
+    
+    for(const[key,value] of Object.entries(fields)){
+        query.push(`${key} = ?`)
+        values.push(value);
+    }
+    values.push(id)
+    db.query(
+    `UPDATE transactions SET ${query.join(',')} where id=?`,
+    values,
+    (err, results) => {
+        if(err){
+            console.error('Erro ao adicionar transação', err)
+            res.status(500).send('Erro ao adicionar transação')
+            return;
+        }
+        res.send('Transação adicionada com sucesso')
+    }
+)
+}
+
+const deleteTransaction = (req, res) =>{
+    const { id } = req.params
+    db.query('DELETE FROM transactions WHERE id= ?', [id],
+    (err, results)=>{
+        if(err){
+            console.error('Erro Ao Deletar Transação',err)
+            res.status(500).send('Erro ao Deletar Transação')
+        return;
+        }
+        res.send('<h1>Transação Deletada Com Sucesso</h1>')
+    }
+);
+};
 
 module.exports = {
     getAllTransactions,
     addTransaction,
     updateTransactionPut,
-    updateTransactionPatch
+    updateTransactionPatch,
+    deleteTransaction
 };

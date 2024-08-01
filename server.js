@@ -28,7 +28,7 @@ app.use('/api/transactions', transactionsRoutes)
 
 // Rota inicial para testar o servidor
 app.get('/', (req, res) => {
-    res.send(`<body style="background: black;"><h1 style="color: red; font-size: 100px; ">Gabriel amostradinho</h1></body>`);                   // definir uma rota para testar o servidor
+    res.send(`<body style="background-image: linear-gradient(180deg, blue, red);"><h1 style="color: red; font-size: 100px; ">Gabriel amostradinho</h1></body>`);                   // definir uma rota para testar o servidor
 });
 
 
