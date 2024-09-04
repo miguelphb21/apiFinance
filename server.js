@@ -13,6 +13,7 @@ const bodyParser = require('body-parser')   //importa o pacote BODY-PARSE para a
 const db = require('./config/db');
 
 const transactionsRoutes = require('./routes/transactions'); // Importa as rotas de transações
+const authRoutes = require('./routes/auth'); // Importa as rotas de autenticação 
 
 
 // inicializar nova aplicação Express
@@ -25,6 +26,7 @@ app.use(bodyParser.json());                              // configura o bodyPars
 
 //Usar as rotas de transações para as requisições que começam com /api/transaction
 app.use('/api/transactions', transactionsRoutes)
+app.use('/api/auth', authRoutes);
 
 // Rota inicial para testar o servidor
 app.get('/', (req, res) => {
