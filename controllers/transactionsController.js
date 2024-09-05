@@ -57,7 +57,7 @@ const updateTransactionPut = (req, res) =>{
     const values = [];
     
     for(const[key,value] of Object.entries(fields)){
-        query.push(`${key} = ?`)
+        query.push(`${key} = ?`) 
         values.push(value);
     }
     values.push(id)
